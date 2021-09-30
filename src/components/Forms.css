@@ -1,4 +1,98 @@
 .main-div {
   display: flex;
-  justify-content: space-evenly;
+  border: 3px solid black;
 }
+.logo-div {
+  display: flex;
+  justify-content: center;
+}
+.logo {
+  width: 250px;
+  text-align: center;
+}
+h2 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 119%;
+}
+.p1 {
+  font-size: 15px;
+  color: grey;
+  font-family: sans-serif;
+}
+
+.head {
+  margin-bottom: 40px;
+}
+.div1 {
+  width: 50%;
+}
+
+.names {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+input {
+  width: 100%;
+  padding: 15px 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-size: 16px;
+}
+input::-webkit-input-placeholder {
+  font-size: 18px;
+  line-height: 3;
+}
+
+.theform {
+  width: 60%;
+  margin: auto;
+}
+
+.d1 {
+  margin: 20px 0;
+}
+
+.check {
+  display: flex;
+}
+.checkbox {
+  width: 20px !important;
+}
+
+a {
+  text-decoration: none;
+}
+.butt {
+  float: right;
+  background-color: #0d83e3;
+  border: #0d83e3;
+  border-radius: 4px;
+  color: white;
+  font-family: 'Gilroy', sans-serif;
+  padding: 0.71rem 1.62rem;
+  font-size: 20px;
+  width: 55% !important;
+}
+
+.div2 {
+  width: 50%;
+}
+
+.second-image {
+  width: 100%;
+}
+/* .sub-div2 {
+  width: 80%;
+  margin: auto;
+  color: white;
+  border: 3px solid white;
+}
+img {
+  width: 300px;
+}
+.yellow-ball {
+  width: 90px;
+} */
