@@ -11,10 +11,10 @@
 }
 @media (max-width: 500px) {
   .logo {
-    width: 150px;
+    width: 200px;
   }
   .logo-div {
-    width: 50%;
+    width: 55%;
     display: block;
     margin: auto;
   }
