@@ -32,10 +32,7 @@ const Forms = () => {
       email: Yup.string()
         .email('Invalid email address')
         .required('An Email is required'),
-      phoneNumber: Yup.number()
-        .required('The phone field is required')
-        .min(7)
-        .integer('No decimals'),
+      phoneNumber: Yup.number().required('The phone field is required').min(7),
       password: Yup.string().required('Password is required'),
       retypePassword: Yup.string().oneOf(
         [Yup.ref('password'), null],

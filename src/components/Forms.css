@@ -9,6 +9,16 @@
   width: 250px;
   text-align: center;
 }
+@media (max-width: 400px) {
+  .logo {
+    width: 150px;
+  }
+  .logo-div {
+    width: 50%;
+    display: block;
+    margin: auto;
+  }
+}
 h2 {
   font-style: normal;
   font-weight: 700;
