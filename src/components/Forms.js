@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+import Loading from './loader'
 import './Forms.css'
 
 const Forms = () => {
+  const [mode, setMode] = useState('password')
+  const [loading, setLoading] = useState(false)
+  const [check, setCheck] = useState(false)
+
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -20,7 +29,9 @@ const Forms = () => {
       lastName: Yup.string()
         .max(20, 'Must be 20 characters or less')
         .required('The Last name is required'),
-      email: Yup.string().email('Invalid email address').required('Required'),
+      email: Yup.string()
+        .email('Invalid email address')
+        .required('An Email is required'),
       phoneNumber: Yup.number()
         .required('The phone field is required')
         .min(7)
@@ -31,10 +42,41 @@ const Forms = () => {
         'Password must match'
       ),
     }),
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2))
+    onSubmit: (values, { resetForm }) => {
+      setLoading(false)
+      const data = {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        phoneNumber: values.phoneNumber,
+        email: values.email,
+        password: values.password,
+      }
+      setLoading(true)
+      console.log(data)
+      axios
+        .post('https://polymathng.herokuapp.com/auth/users/register', data)
+        .then((res) => {
+          setLoading(false)
+          console.log(res.data)
+          toast.success('Registration successful')
+          resetForm({ values: '' })
+        })
+        .catch((err) => {
+          console.log('err')
+          setLoading(false)
+          toast.error('Sorry something went wrong')
+        })
     },
   })
+
+  const eyeClick = () => {
+    if (mode === 'password') {
+      setMode('text')
+    } else {
+      setMode('password')
+    }
+  }
+
   return (
     <div className='main-div'>
       <div className='div1'>
@@ -43,133 +85,293 @@ const Forms = () => {
             <img src='/assets/paylogo2.png' alt='logo' className='logo' />
           </div>
           <div className='head'>
-            <h2>Create your account</h2>
+            <h2>Create your account </h2> <span></span>
             <p className='p1'>
               Already have an account? <a href='gh'>Login</a>
             </p>
           </div>
           <div className='names'>
-            <label>
-              <input
-                id='firstName'
-                name='firstName'
-                type='text'
-                placeholder='First Name'
-                className='input1'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.firstName}
-              />
-              {formik.touched.firstName && formik.errors.firstName ? (
-                <div>{formik.errors.firstName}</div>
-              ) : null}
-            </label>
+            <div className='name1'>
+              <label>
+                {formik.touched.firstName && formik.errors.firstName ? (
+                  <div className='label2'>
+                    <span className='x'>&#x2A3B;</span>
+                    <input
+                      id='firstName'
+                      name='firstName'
+                      type='text'
+                      placeholder='First Name'
+                      className='inputerror'
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.firstName}
+                    />{' '}
+                    <div className='error'>{formik.errors.firstName}</div>
+                  </div>
+                ) : (
+                  <input
+                    id='firstName'
+                    name='firstName'
+                    type='text'
+                    placeholder='First Name'
+                    className='input1'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.firstName}
+                  />
+                )}
+              </label>
+            </div>
+            <ToastContainer />
+            <div className='name2'>
+              <label>
+                {formik.touched.lastName && formik.errors.lastName ? (
+                  <div className='label2'>
+                    <input
+                      id='lastName'
+                      name='lastName'
+                      type='text'
+                      placeholder='Last Name'
+                      className='inputerror2'
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.lastName}
+                    />
+                    <span className='x1'>&#x2A3B;</span>
 
-            <label>
-              <input
-                id='lastName'
-                name='lastName'
-                type='text'
-                placeholder='Last Name'
-                className='input2'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.lastName}
-              />
-              {formik.touched.lastName && formik.errors.lastName ? (
-                <div>{formik.errors.lastName}</div>
-              ) : null}
-            </label>
+                    <div className='error'>{formik.errors.lastName}</div>
+                  </div>
+                ) : (
+                  <input
+                    id='lastName'
+                    name='lastName'
+                    type='text'
+                    placeholder='Last Name'
+                    className='input2'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.lastName}
+                  />
+                )}
+              </label>
+            </div>
           </div>
 
           <div className='d1'>
             <label>
-              <input
-                id='email'
-                name='email'
-                type='email'
-                placeholder='Email Address'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.email}
-              />
               {formik.touched.email && formik.errors.email ? (
-                <div>{formik.errors.email}</div>
-              ) : null}
+                <div className='label2'>
+                  <input
+                    id='email'
+                    name='email'
+                    type='email'
+                    placeholder='Email Address'
+                    className='inputerror2'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.email}
+                  />
+                  <span className='x2'>&#x2A3B;</span>
+                  <div className='error'>{formik.errors.email}</div>
+                </div>
+              ) : (
+                <input
+                  id='email'
+                  name='email'
+                  type='email'
+                  placeholder='Email Address'
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                />
+              )}
             </label>
           </div>
 
           <div className='d1'>
             <label>
-              <input
-                id='phoneNumber'
-                name='phoneNumber'
-                type='number'
-                placeholder='Phone Number'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.phoneNumber}
-              />
               {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-                <div>{formik.errors.phoneNumber}</div>
-              ) : null}
+                <div className='label2'>
+                  <input
+                    id='phoneNumber'
+                    name='phoneNumber'
+                    type='number'
+                    placeholder='Phone Number'
+                    className='inputerror2'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.phoneNumber}
+                  />
+                  <span className='x2'>&#x2A3B;</span>
+                  <div className='error'>{formik.errors.phoneNumber}</div>
+                </div>
+              ) : (
+                <input
+                  id='phoneNumber'
+                  name='phoneNumber'
+                  type='number'
+                  placeholder='Phone Number'
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.phoneNumber}
+                />
+              )}
             </label>
           </div>
 
           <div className='d1'>
             <label>
-              <input
-                id='password'
-                name='password'
-                type='string'
-                placeholder='Password'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
-              />
               {formik.touched.password && formik.errors.password ? (
-                <div>{formik.errors.password}</div>
-              ) : null}
+                <div className='label2'>
+                  <input
+                    id='password'
+                    name='password'
+                    type={mode}
+                    placeholder='Password'
+                    className='inputerror2'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password}
+                  />
+                  {mode === 'password' ? (
+                    <>
+                      <span className='x3' onClick={eyeClick}>
+                        <i className='fa fa-eye' aria-hidden='true'></i>
+                      </span>
+                      <div className='error'>{formik.errors.password}</div>
+                    </>
+                  ) : (
+                    <>
+                      {' '}
+                      <span className='x3' onClick={eyeClick}>
+                        <i className='fa fa-eye-slash' aria-hidden='true'></i>
+                      </span>
+                      <div className='error'>{formik.errors.password}</div>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <div className='label2'>
+                  <input
+                    id='password'
+                    name='password'
+                    type={mode}
+                    placeholder='Password'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password}
+                  />
+
+                  {mode === 'password' ? (
+                    <>
+                      <span className='x4' onClick={eyeClick}>
+                        <i className='fa fa-eye' aria-hidden='true'></i>
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      {' '}
+                      <span className='x4' onClick={eyeClick}>
+                        <i className='fa fa-eye-slash' aria-hidden='true'></i>
+                      </span>
+                    </>
+                  )}
+                </div>
+              )}
             </label>
           </div>
 
           <div className='d1'>
             <label>
-              <input
-                id='retypePassword'
-                name='retypePassword'
-                type='string'
-                placeholder='Retype Password'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.retypePassword}
-              />
               {formik.touched.retypePassword && formik.errors.retypePassword ? (
-                <div>{formik.errors.retypePassword}</div>
-              ) : null}
+                <div className='label2'>
+                  <input
+                    id='retypePassword'
+                    name='retypePassword'
+                    type={mode}
+                    placeholder='Retype Password'
+                    className='inputerror2'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.retypePassword}
+                  />
+                  {mode === 'password' ? (
+                    <>
+                      <span className='x3' onClick={eyeClick}>
+                        <i className='fa fa-eye' aria-hidden='true'></i>
+                      </span>
+                      <div className='error'>{formik.errors.password}</div>
+                    </>
+                  ) : (
+                    <>
+                      {' '}
+                      <span className='x3' onClick={eyeClick}>
+                        <i className='fa fa-eye-slash' aria-hidden='true'></i>
+                      </span>
+                      <div className='error'>{formik.errors.password}</div>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <div className='label2'>
+                  <input
+                    id='retypePassword'
+                    name='retypePassword'
+                    type={mode}
+                    placeholder='Retype Password'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.retypePassword}
+                  />
+                  {mode === 'password' ? (
+                    <>
+                      <span className='x4' onClick={eyeClick}>
+                        <i className='fa fa-eye' aria-hidden='true'></i>
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      {' '}
+                      <span className='x4' onClick={eyeClick}>
+                        <i className='fa fa-eye-slash' aria-hidden='true'></i>
+                      </span>
+                    </>
+                  )}
+                </div>
+              )}
             </label>
           </div>
 
           <div className='check'>
-            <input type='checkbox' className='checkbox' /> I have read the
-            <a href='ff'>terms and conditions</a>
+            <p>
+              <input
+                type='checkbox'
+                className='checkbox'
+                checked={check}
+                onChange={() => {
+                  setCheck(!check)
+                }}
+              />{' '}
+              I have read the
+              <a href='ff'> terms and conditions</a>
+            </p>
           </div>
           <h4>Forgot password?</h4>
 
           <div className='butt-div'>
-            <button type='submit' className='butt'>
-              Create account
+            <button type='submit' className='butt' disabled={check === false}>
+              {loading ? <Loading color={'white'} /> : 'Register'}
             </button>
           </div>
         </form>
       </div>
       <div className='div2'>
-        <div>
-          <img
+        <div className='div3'>
+          {/* <img
             src='/assets/polymath.jpeg'
             alt='polymath'
             className='second-image'
-          />
+          /> */}
         </div>
 
         {/* <div className='sub-div2'>

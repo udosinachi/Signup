@@ -1,6 +1,5 @@
 .main-div {
   display: flex;
-  border: 3px solid black;
 }
 .logo-div {
   display: flex;
@@ -13,7 +12,7 @@
 h2 {
   font-style: normal;
   font-weight: 700;
-  font-size: 40px;
+  font-size: 37px;
   line-height: 119%;
 }
 .p1 {
@@ -27,12 +26,75 @@ h2 {
 }
 .div1 {
   width: 50%;
+  margin-bottom: 60px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  padding: 4px 0;
+}
+.x {
+  color: red;
+  font-size: 19px;
+  position: absolute;
+  left: 67%;
+  top: 10%;
+}
+.x1 {
+  color: red;
+  font-size: 19px;
+  position: absolute;
+  right: -5%;
+  top: 10%;
+}
+.x2 {
+  color: red;
+  font-size: 19px;
+  position: absolute;
+  right: -3%;
+  top: 10%;
+}
+.x3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: red;
+  position: absolute;
+  right: -3%;
+  top: 15%;
+}
+.x3:hover {
+  cursor: pointer;
+}
+.x4:hover {
+  cursor: pointer;
+}
+.x4 {
+  font-size: 17px;
+  font-weight: 700;
+  position: absolute;
+  right: -3%;
+  top: 25%;
+}
+.label2 {
+  position: relative;
+}
+
+.input1 {
+  width: 70% !important;
+}
+.inputerror {
+  width: 70% !important;
+  border: 1px solid red !important;
+}
+.inputerror2 {
+  border: 1px solid red !important;
 }
 
 .names {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  margin: 20px 0;
 }
 input {
   width: 100%;
@@ -48,6 +110,7 @@ input::-webkit-input-placeholder {
 
 .theform {
   width: 60%;
+  box-sizing: border-box;
   margin: auto;
 }
 
@@ -65,25 +128,44 @@ input::-webkit-input-placeholder {
 a {
   text-decoration: none;
 }
+
+h4:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.butt-div {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
 .butt {
-  float: right;
   background-color: #0d83e3;
   border: #0d83e3;
   border-radius: 4px;
   color: white;
   font-family: 'Gilroy', sans-serif;
-  padding: 0.71rem 1.62rem;
-  font-size: 20px;
+  padding: 12px 0;
+  font-size: large;
   width: 55% !important;
+}
+.butt:hover {
+  color: silver;
+  cursor: pointer;
 }
 
 .div2 {
   width: 50%;
+
+  background-image: url('/src/components/polymath.jpeg');
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: cover !important;
 }
 
-.second-image {
+/* .second-image {
   width: 100%;
-}
+  height: auto;
+} */
 /* .sub-div2 {
   width: 80%;
   margin: auto;
@@ -96,3 +178,36 @@ img {
 .yellow-ball {
   width: 90px;
 } */
+
+@media (max-width: 770px) {
+  .main-div {
+    display: block;
+  }
+  .div1 {
+    width: 100% !important;
+    padding-bottom: 15px;
+  }
+  .div2 {
+    display: none;
+    width: 100% !important;
+    padding-bottom: 15px;
+  }
+  .theform {
+    width: 95% !important;
+    padding: 0 30px 0 10px;
+  }
+  .input {
+    width: 80% !important;
+  }
+  .names {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+  }
+  .name1 {
+    width: 90%;
+  }
+  .name2 {
+    width: 90%;
+  }
+}
