@@ -84,7 +84,7 @@ const Forms = () => {
           <div className='head'>
             <h2>Create your account </h2> <span></span>
             <p className='p1'>
-              Already have an account? <a href='gh'>Login</a>
+              Already have an account? <span className='a'>Login</span>
             </p>
           </div>
           <div className='names'>
@@ -350,7 +350,7 @@ const Forms = () => {
                 }}
               />{' '}
               I have read the
-              <a href='ff'> terms and conditions</a>
+              <span className='a'> terms and conditions</span>
             </p>
           </div>
           <h4>Forgot password?</h4>

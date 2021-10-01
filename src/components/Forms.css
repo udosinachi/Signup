@@ -135,8 +135,9 @@ input::-webkit-input-placeholder {
   width: 20px !important;
 }
 
-a {
+.a {
   text-decoration: none;
+  color: blue;
 }
 
 h4:hover {
